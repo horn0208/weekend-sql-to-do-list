@@ -24,11 +24,21 @@ function fetchTasks(){
 
 function showTasks(tasks){
     for (let i=0; i<tasks.length; i++){
-        $('#list-display').append(`<li data-id="${tasks[i].id}">
-        <button class="completeBtn">Complete!</button>
+        //conditionals to change appearance based on complete status:
+        let itemClass = ''
+        let showCompleteBtn = ''
+        if (tasks[i].complete === false){
+            itemClass = 'incomplete';
+            showCompleteBtn = '<button class="completeBtn">Complete!</button>'
+        } else if (tasks[i].complete === true) {
+            itemClass = 'complete';
+            
+        }
+        $('#list-display').append(`<li class=${itemClass} data-id="${tasks[i].id}">
+        ${tasks[i].description} 
+        ${showCompleteBtn} 
         <button class="deleteBtn">Delete</button>
-        ${tasks[i].description}
-        </li>`)
+        </li>`);
     }
 }
 
