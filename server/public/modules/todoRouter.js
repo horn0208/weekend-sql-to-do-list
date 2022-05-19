@@ -25,4 +25,16 @@ todoRouter.get('/', (req, res)=>{
     })
 })
 
+todoRouter.put('/', (req, res)=>{
+    console.log('/todoRouter PUT');
+    let queryString = `UPDATE tasks SET complete = true WHERE id=$1;`;
+    const values = [req.query.id];
+    pool.query(queryString, values).then((results)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = todoRouter;

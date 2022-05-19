@@ -5,6 +5,7 @@ function onReady(){
     fetchTasks();
     //click handlers
     $('#taskInButton').on('click', taskIn);
+    $('#list-display').on('click', '.completeBtn', completeTask);
 }
 
 function fetchTasks(){
@@ -23,21 +24,24 @@ function fetchTasks(){
 }
 
 function showTasks(tasks){
+    let el = $('#list-display');
+    el.empty();
+
     for (let i=0; i<tasks.length; i++){
         //conditionals to change appearance based on complete status:
         let itemClass = ''
         let showCompleteBtn = ''
         if (tasks[i].complete === false){
             itemClass = 'incomplete';
-            showCompleteBtn = '<button class="completeBtn">Complete!</button>'
+            showCompleteBtn = `<button class="completeBtn" data-id="${tasks[i].id}">Complete!</button>`
         } else if (tasks[i].complete === true) {
             itemClass = 'complete';
             
         }
-        $('#list-display').append(`<li class=${itemClass} data-id="${tasks[i].id}">
+        $(el).append(`<li class=${itemClass}>
         ${tasks[i].description} 
         ${showCompleteBtn} 
-        <button class="deleteBtn">Delete</button>
+        <button class="deleteBtn" data-id="${tasks[i].id}">Delete</button>
         </li>`);
     }
 }
@@ -67,5 +71,21 @@ function addTask(newTask){
     }).catch(function(err){
         console.log(err);
         alert('Error posting todo item');
+    })
+}
+
+function completeTask(){
+    console.log('data id:', $(this).data('id'));
+    //UPDATE request to server
+    $.ajax({
+        method: 'PUT',
+        url: `/todo?id=${$(this).data('id')}`
+    }).then(function(response){
+        console.log('back from UPDATE:', response);
+        // get updated task list and display on DOM:
+        fetchTasks();
+    }).catch(function(err){
+        console.log(err);
+        alert('Error marking task complete');
     })
 }
