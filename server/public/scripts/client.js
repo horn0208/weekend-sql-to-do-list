@@ -2,9 +2,24 @@ $(document).ready(onReady);
 
 function onReady(){
     //display to-do list on DOM
-
+    showTasks();
     //click handlers
     $('#taskInButton').on('click', taskIn);
+}
+
+function showTasks(){
+    //GET request to server
+    $.ajax({
+        method: 'GET',
+        url: '/todo'
+    }).then(function(response){
+        console.log('back from GET', response);
+        // run function to display results
+
+    }).catch(function(err){
+        console.log(err);
+        alert('Error getting todo tasks');
+    })
 }
 
 function taskIn(){
@@ -27,8 +42,8 @@ function addTask(newTask){
         data: newTask
     }).then(function(response){
         console.log('back from POST:', response);
-        //TO DO run function to update list on DOM
-
+        //TO DO run function to get to do list
+        showTasks();
     }).catch(function(err){
         console.log(err);
         alert('Error posting todo item');

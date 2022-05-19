@@ -14,6 +14,15 @@ todoRouter.post('/', (req, res)=>{
     })
 })
 
-
+todoRouter.get('/', (req, res)=>{
+    console.log('/todoRouter GET');
+    let queryString = `SELECT * FROM tasks ORDER BY id ASC;`
+    pool.query(queryString).then((results)=>{
+        res.send(results.rows);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
 
 module.exports = todoRouter;
