@@ -26,8 +26,20 @@ todoRouter.get('/', (req, res)=>{
 })
 
 todoRouter.put('/', (req, res)=>{
-    console.log('/todoRouter PUT');
+    console.log('/todoRouter PUT', req.query);
     let queryString = `UPDATE tasks SET complete = true WHERE id=$1;`;
+    const values = [req.query.id];
+    pool.query(queryString, values).then((results)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
+todoRouter.delete('/', (req, res)=>{
+    console.log('/todoRouter DELETE', req.query);
+    let queryString = `DELETE FROM tasks WHERE id=$1;`
     const values = [req.query.id];
     pool.query(queryString, values).then((results)=>{
         res.sendStatus(200);

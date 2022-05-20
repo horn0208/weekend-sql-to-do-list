@@ -6,6 +6,7 @@ function onReady(){
     //click handlers
     $('#taskInButton').on('click', taskIn);
     $('#list-display').on('click', '.completeBtn', completeTask);
+    $('#list-display').on('click', '.deleteBtn', deleteTask);
 }
 
 function fetchTasks(){
@@ -35,9 +36,9 @@ function showTasks(tasks){
             itemClass = 'incomplete';
             showCompleteBtn = `<button class="completeBtn" data-id="${tasks[i].id}">Complete!</button>`
         } else if (tasks[i].complete === true) {
-            itemClass = 'complete';
-            
+            itemClass = 'complete';  
         }
+        // append to list on DOM
         $(el).append(`<li class=${itemClass}>
         ${tasks[i].description} 
         ${showCompleteBtn} 
@@ -76,7 +77,7 @@ function addTask(newTask){
 
 function completeTask(){
     console.log('data id:', $(this).data('id'));
-    //UPDATE request to server
+    // update (PUT) request to server
     $.ajax({
         method: 'PUT',
         url: `/todo?id=${$(this).data('id')}`
@@ -87,5 +88,21 @@ function completeTask(){
     }).catch(function(err){
         console.log(err);
         alert('Error marking task complete');
+    })
+}
+
+function deleteTask(){
+    console.log('data id:', $(this).data('id'));
+    // DELETE request to server
+    $.ajax({
+        method: 'DELETE',
+        url: `/todo?id=${$(this).data('id')}`
+    }).then(function(response){
+        console.log('back from DELETE:', response);
+        // get updated task list and display on DOM:
+        fetchTasks();
+    }).catch(function(err){
+        console.log(err);
+        alert('Error deleting task');
     })
 }
