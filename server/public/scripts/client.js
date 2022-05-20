@@ -30,18 +30,21 @@ function showTasks(tasks){
 
     for (let i=0; i<tasks.length; i++){
         //conditionals to change appearance based on complete status:
-        let itemClass = ''
-        let showCompleteBtn = ''
+        let itemClass = '';
+        let showCompleteBtn = '';
+        let checkMark = ''
         if (tasks[i].complete === false){
             itemClass = 'incomplete';
             showCompleteBtn = `<button class="completeBtn" data-id="${tasks[i].id}">Complete!</button>`
         } else if (tasks[i].complete === true) {
-            itemClass = 'complete';  
+            itemClass = 'complete';
+            checkMark = '&#9989'; //hex code for checkmark emoji
         }
         // append to list on DOM
         $(el).append(`<li class=${itemClass}>
         ${tasks[i].description} 
         ${showCompleteBtn} 
+        ${checkMark} 
         <button class="deleteBtn" data-id="${tasks[i].id}">Delete</button>
         </li>`);
     }
