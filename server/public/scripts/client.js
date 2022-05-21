@@ -35,17 +35,22 @@ function showTasks(tasks){
         let checkMark = ''
         if (tasks[i].complete === false){
             itemClass = 'incomplete';
-            showCompleteBtn = `<button class="completeBtn" data-id="${tasks[i].id}">Complete!</button>`
+            checkMark = '&#128681';
+            showCompleteBtn = `<button class="completeBtn" data-id="${tasks[i].id}">Complete</button>`
         } else if (tasks[i].complete === true) {
             itemClass = 'complete';
             checkMark = '&#9989'; //hex code for checkmark emoji
         }
         // append to list on DOM
         $(el).append(`<li class=${itemClass}>
-        ${tasks[i].description} 
-        ${showCompleteBtn} 
-        ${checkMark} 
+        <div class='description-box'>
+        ${checkMark}  
+        ${tasks[i].description}
+        </div>
+        <div class='button-box'>
+        ${showCompleteBtn}   
         <button class="deleteBtn" data-id="${tasks[i].id}">Delete</button>
+        </div>
         </li>`);
     }
 }
