@@ -36,7 +36,7 @@ function showTasks(tasks){
         if (tasks[i].complete === false){
             itemClass = 'incomplete';
             checkMark = '&#128681';
-            showCompleteBtn = `<button class="completeBtn" data-id="${tasks[i].id}">Complete</button>`
+            showCompleteBtn = `<button class="btn btn-sm btn-success completeBtn" data-id="${tasks[i].id}">Complete</button>`
         } else if (tasks[i].complete === true) {
             itemClass = 'complete';
             checkMark = '&#9989'; //hex code for checkmark emoji
@@ -49,7 +49,7 @@ function showTasks(tasks){
         </div>
         <div class='button-box'>
         ${showCompleteBtn}   
-        <button class="deleteBtn" data-id="${tasks[i].id}">Delete</button>
+        <button class="btn btn-sm btn-danger deleteBtn" data-id="${tasks[i].id}">Delete</button>
         </div>
         </li>`);
     }
