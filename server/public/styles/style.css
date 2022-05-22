@@ -13,9 +13,9 @@ body {
     margin: auto;
     padding:2em 5em;
 }
-#taskIn {
-    /* width: 250px; */
-}
+/* #taskIn {
+    width: 250px;
+} */
 #list-display {
     list-style: none;
     padding: 0em 5em;
