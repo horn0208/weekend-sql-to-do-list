@@ -101,16 +101,44 @@ function completeTask(){
 
 function deleteTask(){
     console.log('data id:', $(this).data('id'));
-    // DELETE request to server
-    $.ajax({
-        method: 'DELETE',
-        url: `/todo?id=${$(this).data('id')}`
-    }).then(function(response){
-        console.log('back from DELETE:', response);
-        // get updated task list and display on DOM:
-        fetchTasks();
-    }).catch(function(err){
-        console.log(err);
-        alert('Error deleting task');
-    })
-}
+
+    swal({
+        title: "Really?",
+        text: "You want to remove this task?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          //DELETE request to server
+          $.ajax({
+            method: 'DELETE',
+            url: `/todo?id=${$(this).data('id')}`
+        }).then(function(response){
+            console.log('back from DELETE:', response);
+            // get updated task list and display on DOM:
+            fetchTasks();
+        }).catch(function(err){
+            console.log(err);
+            alert('Error deleting task');
+        });
+        } else {
+          swal("Your task is safe!");
+        }
+      });
+    }
+
+//     // DELETE request to server
+//     $.ajax({
+//         method: 'DELETE',
+//         url: `/todo?id=${$(this).data('id')}`
+//     }).then(function(response){
+//         console.log('back from DELETE:', response);
+//         // get updated task list and display on DOM:
+//         fetchTasks();
+//     }).catch(function(err){
+//         console.log(err);
+//         alert('Error deleting task');
+//     })
+// }
