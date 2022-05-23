@@ -1,12 +1,12 @@
 body {
     margin: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: rgb(206, 210, 222);
+    background-color: black;
 }
 #header {
     text-align: center;
     font-size: 32px;
-    color: green;
+    color: white;
 }
 #task-in-box {
     width: 550px;
@@ -26,8 +26,8 @@ li {
     padding: 5px;
 }
 .complete {
-    background-color: aqua;
-    color:rgb(90, 99, 125);
+    background-color:rgba(0, 255, 255, 0.339);
+    color:white;
     display: flex;
     justify-content: space-between;
 }
@@ -51,7 +51,7 @@ li {
 } */
 
 .incomplete {
-    background-color: #ffde5b;
+    background-color: aqua;
     display: flex;
     justify-content:left;   
 }
