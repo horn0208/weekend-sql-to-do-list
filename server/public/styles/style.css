@@ -43,6 +43,11 @@ li {
     margin-top: 5px;
     width: 390px;
 }
+#sortTasksButton {
+    margin-top: 5px;
+    width: 390px;
+}
+
 /* .completeBtn {
     background-color: #10f582;
 }
