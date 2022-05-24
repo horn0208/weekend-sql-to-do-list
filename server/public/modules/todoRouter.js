@@ -13,10 +13,15 @@ todoRouter.post('/', (req, res)=>{
         res.sendStatus(500);
     })
 })
-
+// modified this to accept req.query from sortTasks
 todoRouter.get('/', (req, res)=>{
-    console.log('/todoRouter GET');
+    console.log('/todoRouter GET', req.query.sort);
+    // query default for page load and tasks added/updated:
     let queryString = `SELECT * FROM tasks ORDER BY id ASC;`
+    // query if sortTasks button was clicked:
+    if (req.query.sort) {
+        queryString = `SELECT * FROM tasks ORDER BY complete DESC;`
+    };
     pool.query(queryString).then((results)=>{
         res.send(results.rows);
     }).catch((err)=>{

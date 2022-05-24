@@ -7,6 +7,7 @@ function onReady(){
     $('#taskInButton').on('click', taskIn);
     $('#list-display').on('click', '.completeBtn', completeTask);
     $('#list-display').on('click', '.deleteBtn', deleteTask);
+    $('#sortTasksButton').on('click', sortTasks);
 }
 
 function fetchTasks(){
@@ -16,6 +17,22 @@ function fetchTasks(){
         url: '/todo'
     }).then(function(response){
         console.log('back from GET', response);
+        // pass response to function to display results
+        showTasks(response);
+    }).catch(function(err){
+        console.log(err);
+        alert('Error getting todo tasks');
+    })
+}
+
+function sortTasks(){
+    console.log('in sortTasks');
+    // GET request to server for sorted tasks
+    $.ajax({
+        method: 'GET',
+        url: '/todo?sort=complete'
+    }).then(function(response){
+        console.log('back from GET sort', response);
         // pass response to function to display results
         showTasks(response);
     }).catch(function(err){
